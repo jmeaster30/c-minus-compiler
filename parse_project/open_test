@@ -1,0 +1,4 @@
+INPUTFILE="sem_test_cases/$1.in"
+AST="sem_outputs/$1.in.ast"
+ASTICO="sem_outputs/$1.in.astico"
+gedit $INPUTFILE $AST $ASTICO

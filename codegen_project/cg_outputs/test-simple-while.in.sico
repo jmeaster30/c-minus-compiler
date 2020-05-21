@@ -1,0 +1,83 @@
+.data
+.align 2
+
+.text
+main:
+addiu $sp, $sp, -20
+sw $ra, 8($sp)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+li $v0, 0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L2:
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 0
+lw $t0, 0($sp)
+slt $v0, $v0, $t0
+beq $v0, $0, .L3
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+subu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+j .L2
+.L3:
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+.L1:
+lw $ra, 8($sp)
+addiu $sp, $sp, 20
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

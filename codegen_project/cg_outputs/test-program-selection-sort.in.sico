@@ -1,0 +1,328 @@
+.data
+.align 2
+x: .space 40
+
+.text
+minloc:
+addiu $sp, $sp, -36
+sw $ra, 8($sp)
+sw $a0, 24($sp)
+sw $a1, 28($sp)
+sw $a2, 32($sp)
+addiu $v0, $sp, 20
+sw $v0, 0($sp)
+addiu $v0, $sp, 28
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 28
+lw $v0, 0($v0)
+bltzal $v0, .L2
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 28
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L3:
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 32
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+slt $v0, $t0, $v0
+beq $v0, $0, .L4
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+bltzal $v0, .L2
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+slt $v0, $t0, $v0
+beq $v0, $0, .L5
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+bltzal $v0, .L2
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 20
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L5:
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+j .L3
+.L4:
+addiu $v0, $sp, 20
+lw $v0, 0($v0)
+j .L1
+.L1:
+lw $ra, 8($sp)
+addiu $sp, $sp, 36
+jr $ra
+.L2:
+j __crt_out_of_bounds
+sort:
+addiu $sp, $sp, -36
+sw $ra, 8($sp)
+sw $a0, 24($sp)
+sw $a1, 28($sp)
+sw $a2, 32($sp)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 28
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L7:
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 32
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+subu $v0, $t0, $v0
+lw $t0, 0($sp)
+slt $v0, $t0, $v0
+beq $v0, $0, .L8
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+add $a0, $v0, $0
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+add $a1, $v0, $0
+addiu $v0, $sp, 32
+lw $v0, 0($v0)
+add $a2, $v0, $0
+jal minloc
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 20
+sw $v0, 0($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+bltzal $v0, .L9
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+bltzal $v0, .L9
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+bltzal $v0, .L9
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+bltzal $v0, .L9
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+addiu $v0, $sp, 20
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+j .L7
+.L8:
+.L6:
+lw $ra, 8($sp)
+addiu $sp, $sp, 36
+jr $ra
+.L9:
+j __crt_out_of_bounds
+main:
+addiu $sp, $sp, -16
+sw $ra, 8($sp)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+li $v0, 0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L11:
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 10
+lw $t0, 0($sp)
+slt $v0, $t0, $v0
+beq $v0, $0, .L12
+la $v0, x
+sw $v0, 4($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+bltzal $v0, .L13
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+j .L11
+.L12:
+la $v0, x
+add $a0, $v0, $0
+li $v0, 0
+add $a1, $v0, $0
+li $v0, 10
+add $a2, $v0, $0
+jal sort
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+li $v0, 0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L14:
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 10
+lw $t0, 0($sp)
+slt $v0, $t0, $v0
+beq $v0, $0, .L15
+la $v0, x
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+bltzal $v0, .L13
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+j .L14
+.L15:
+.L10:
+lw $ra, 8($sp)
+addiu $sp, $sp, 16
+jr $ra
+.L13:
+j __crt_out_of_bounds
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

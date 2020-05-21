@@ -1,0 +1,31 @@
+TESTS=0
+TESTS=(sem_test_cases/*)
+NUM_OF_TESTS=0
+NUM_OF_TESTS=${#TESTS[@]}
+echo "$NUM_OF_TESTS"
+
+SUCCESS=0
+
+echo "Building Executable..."
+./compile.sh
+echo "Running tests..."
+echo -n "" > failed.txt
+mkdir sem_outputs
+for f in "${TESTS[@]}"; do
+	echo "****** Executing test $f ******"
+	./run.sh $f sem_outputs/${f##*/}.ast
+	./sintatico $f sem_outputs/${f##*/}.astico
+	python clear_whitespace.py sem_outputs/${f##*/}.ast
+        python clear_whitespace.py sem_outputs/${f##*/}.astico
+	RESULT=$(diff sem_outputs/${f##*/}.ast sem_outputs/${f##*/}.astico)
+	if [[ -n "$RESULT" ]]; then
+		echo "TEST FAILED"
+		echo $f >> failed.txt
+	else
+		echo "TEST PASSED"
+		((SUCCESS++))
+	fi
+	echo ""
+done
+echo "$SUCCESS out of $NUM_OF_TESTS passed."
+	

@@ -1,0 +1,101 @@
+.data
+.align 2
+
+.text
+foo:
+addiu $sp, $sp, -28
+sw $ra, 8($sp)
+sw $a0, 20($sp)
+sw $a1, 24($sp)
+addiu $v0, $sp, 20
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 0
+lw $t0, 0($sp)
+xor $v0, $t0, $v0
+sltiu $v0, $v0, 1
+beq $v0, $0, .L2
+li $v0, 42
+j .L1
+.L2:
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+addiu $v0, $sp, 20
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+lw $t0, 4($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+addiu $v0, $sp, 20
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 24
+lw $v0, 0($v0)
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+mult $t0, $v0
+mflo $v0
+j .L1
+.L1:
+lw $ra, 8($sp)
+addiu $sp, $sp, 28
+jr $ra
+main:
+addiu $sp, $sp, -4
+sw $ra, 0($sp)
+li $v0, 0
+add $a0, $v0, $0
+li $v0, 20
+add $a1, $v0, $0
+jal foo
+add $a0, $v0, $0
+jal output
+li $v0, 10
+add $a0, $v0, $0
+li $v0, 20
+add $a1, $v0, $0
+jal foo
+add $a0, $v0, $0
+jal output
+.L3:
+lw $ra, 0($sp)
+addiu $sp, $sp, 4
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

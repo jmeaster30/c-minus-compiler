@@ -1,0 +1,176 @@
+.data
+.align 2
+
+.text
+main:
+addiu $sp, $sp, -100
+sw $ra, 76($sp)
+addiu $v0, $sp, 80
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 84
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 88
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 92
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 96
+sw $v0, 0($sp)
+addiu $v0, $sp, 80
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+addiu $v0, $sp, 88
+lw $v0, 0($v0)
+sw $v0, 16($sp)
+addiu $v0, $sp, 92
+lw $v0, 0($v0)
+lw $t0, 16($sp)
+addu $v0, $t0, $v0
+sw $v0, 12($sp)
+addiu $v0, $sp, 80
+lw $v0, 0($v0)
+lw $t0, 12($sp)
+subu $v0, $t0, $v0
+sw $v0, 8($sp)
+addiu $v0, $sp, 80
+lw $v0, 0($v0)
+sw $v0, 12($sp)
+addiu $v0, $sp, 84
+lw $v0, 0($v0)
+sw $v0, 16($sp)
+addiu $v0, $sp, 92
+lw $v0, 0($v0)
+sw $v0, 20($sp)
+addiu $v0, $sp, 88
+lw $v0, 0($v0)
+sw $v0, 24($sp)
+addiu $v0, $sp, 80
+lw $v0, 0($v0)
+sw $v0, 28($sp)
+addiu $v0, $sp, 92
+lw $v0, 0($v0)
+sw $v0, 32($sp)
+addiu $v0, $sp, 88
+lw $v0, 0($v0)
+sw $v0, 36($sp)
+addiu $v0, $sp, 84
+lw $v0, 0($v0)
+sw $v0, 40($sp)
+addiu $v0, $sp, 80
+lw $v0, 0($v0)
+sw $v0, 44($sp)
+addiu $v0, $sp, 92
+lw $v0, 0($v0)
+sw $v0, 48($sp)
+addiu $v0, $sp, 92
+lw $v0, 0($v0)
+sw $v0, 52($sp)
+addiu $v0, $sp, 84
+lw $v0, 0($v0)
+sw $v0, 56($sp)
+addiu $v0, $sp, 88
+lw $v0, 0($v0)
+sw $v0, 60($sp)
+addiu $v0, $sp, 80
+lw $v0, 0($v0)
+sw $v0, 64($sp)
+addiu $v0, $sp, 84
+lw $v0, 0($v0)
+sw $v0, 68($sp)
+addiu $v0, $sp, 88
+lw $v0, 0($v0)
+sw $v0, 72($sp)
+addiu $v0, $sp, 92
+lw $v0, 0($v0)
+lw $t0, 72($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 68($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 64($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 60($sp)
+addu $v0, $t0, $v0
+lw $t0, 56($sp)
+subu $v0, $t0, $v0
+lw $t0, 52($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 48($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 44($sp)
+div $t0, $v0
+mflo $v0
+lw $t0, 40($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 36($sp)
+addu $v0, $t0, $v0
+lw $t0, 32($sp)
+subu $v0, $t0, $v0
+lw $t0, 28($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 24($sp)
+addu $v0, $t0, $v0
+lw $t0, 20($sp)
+subu $v0, $t0, $v0
+lw $t0, 16($sp)
+div $t0, $v0
+mflo $v0
+lw $t0, 12($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 8($sp)
+addu $v0, $t0, $v0
+lw $t0, 4($sp)
+mult $t0, $v0
+mflo $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 96
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+.L1:
+lw $ra, 76($sp)
+addiu $sp, $sp, 100
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

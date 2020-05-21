@@ -1,0 +1,16 @@
+INPUTFILE="$1.in"
+echo "******      Compiling parser     ******"
+
+./compile.sh
+
+echo "****** Executing test $INPUTFILE ******"
+./run.sh sem_test_cases/$INPUTFILE sem_outputs/$INPUTFILE.ast
+./sintatico sem_test_cases/$INPUTFILE sem_outputs/$INPUTFILE.astico
+python clear_whitespace.py sem_outputs/$INPUTFILE.ast
+python clear_whitespace.py sem_outputs/$INPUTFILE.astico
+RESULT=$(diff sem_outputs/$INPUTFILE.ast sem_outputs/$INPUTFILE.astico)
+if [[ -n "$RESULT" ]]; then
+	echo "TEST FAILED"
+else
+	echo "TEST PASSED"
+fi

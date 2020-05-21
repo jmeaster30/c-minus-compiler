@@ -1,0 +1,3 @@
+python make_makefile.py
+make
+make clean

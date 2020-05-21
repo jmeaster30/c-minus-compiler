@@ -1,0 +1,383 @@
+.data
+.align 2
+g: .space 4
+garr: .space 16
+
+.text
+bar:
+addiu $sp, $sp, -28
+sw $ra, 8($sp)
+sw $a0, 12($sp)
+sw $a1, 16($sp)
+sw $a2, 20($sp)
+sw $a3, 24($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 1
+bltzal $v0, .L2
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 2
+bltzal $v0, .L2
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 20
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 24
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L1:
+lw $ra, 8($sp)
+addiu $sp, $sp, 28
+jr $ra
+.L2:
+j __crt_out_of_bounds
+foo:
+addiu $sp, $sp, -24
+sw $ra, 8($sp)
+sw $a0, 12($sp)
+sw $a1, 16($sp)
+sw $a2, 20($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 1
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 0
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 4($sp)
+li $v0, 1
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+add $a0, $v0, $0
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 1
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a1, $v0, $0
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+add $a2, $v0, $0
+addiu $v0, $sp, 20
+lw $v0, 0($v0)
+add $a3, $v0, $0
+jal bar
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 20
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L3:
+lw $ra, 8($sp)
+addiu $sp, $sp, 24
+jr $ra
+.L4:
+j __crt_out_of_bounds
+main:
+addiu $sp, $sp, -32
+sw $ra, 8($sp)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+li $v0, 101
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 4($sp)
+li $v0, 0
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 102
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 4($sp)
+li $v0, 1
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 103
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 4($sp)
+li $v0, 2
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 104
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+sw $v0, 4($sp)
+li $v0, 3
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 105
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 16
+add $a0, $v0, $0
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+add $a1, $v0, $0
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+li $v0, 3
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a2, $v0, $0
+jal foo
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+li $v0, 0
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+li $v0, 1
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+li $v0, 2
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 16
+sw $v0, 0($sp)
+li $v0, 3
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+la $v0, g
+sw $v0, 0($sp)
+li $v0, 201
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+la $v0, garr
+sw $v0, 4($sp)
+li $v0, 0
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 202
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+la $v0, garr
+sw $v0, 4($sp)
+li $v0, 1
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 203
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+la $v0, garr
+sw $v0, 4($sp)
+li $v0, 2
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 204
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+la $v0, garr
+sw $v0, 4($sp)
+li $v0, 3
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+li $v0, 205
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+la $v0, garr
+add $a0, $v0, $0
+la $v0, g
+lw $v0, 0($v0)
+add $a1, $v0, $0
+la $v0, garr
+sw $v0, 0($sp)
+li $v0, 3
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a2, $v0, $0
+jal foo
+la $v0, garr
+sw $v0, 0($sp)
+li $v0, 0
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+la $v0, garr
+sw $v0, 0($sp)
+li $v0, 1
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+la $v0, garr
+sw $v0, 0($sp)
+li $v0, 2
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+la $v0, garr
+sw $v0, 0($sp)
+li $v0, 3
+bltzal $v0, .L6
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+la $v0, g
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+.L5:
+lw $ra, 8($sp)
+addiu $sp, $sp, 32
+jr $ra
+.L6:
+j __crt_out_of_bounds
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

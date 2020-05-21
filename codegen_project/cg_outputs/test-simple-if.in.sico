@@ -1,0 +1,119 @@
+.data
+.align 2
+
+.text
+main:
+addiu $sp, $sp, -16
+sw $ra, 4($sp)
+addiu $v0, $sp, 8
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+xor $v0, $t0, $v0
+sltiu $v0, $v0, 1
+beq $v0, $0, .L2
+li $v0, 1
+add $a0, $v0, $0
+jal output
+j .L3
+.L2:
+li $v0, 2
+add $a0, $v0, $0
+jal output
+.L3:
+li $v0, 3
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+xor $v0, $t0, $v0
+sltu $v0, $0, $v0
+beq $v0, $0, .L4
+li $v0, 4
+add $a0, $v0, $0
+jal output
+j .L5
+.L4:
+li $v0, 5
+add $a0, $v0, $0
+jal output
+.L5:
+li $v0, 6
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+xor $v0, $t0, $v0
+sltiu $v0, $v0, 1
+beq $v0, $0, .L6
+li $v0, 7
+add $a0, $v0, $0
+jal output
+.L6:
+li $v0, 8
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+addiu $v0, $sp, 12
+lw $v0, 0($v0)
+lw $t0, 0($sp)
+xor $v0, $t0, $v0
+sltu $v0, $0, $v0
+beq $v0, $0, .L7
+li $v0, 9
+add $a0, $v0, $0
+jal output
+.L7:
+li $v0, 10
+add $a0, $v0, $0
+jal output
+.L1:
+lw $ra, 4($sp)
+addiu $sp, $sp, 16
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

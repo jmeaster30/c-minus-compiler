@@ -1,0 +1,104 @@
+.data
+.align 2
+x: .space 4
+
+.text
+setglobalx:
+addiu $sp, $sp, -8
+sw $ra, 4($sp)
+la $v0, x
+sw $v0, 0($sp)
+li $v0, 10
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+.L1:
+lw $ra, 4($sp)
+addiu $sp, $sp, 8
+jr $ra
+printglobalx:
+addiu $sp, $sp, -4
+sw $ra, 0($sp)
+la $v0, x
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+.L2:
+lw $ra, 0($sp)
+addiu $sp, $sp, 4
+jr $ra
+foo:
+addiu $sp, $sp, -20
+sw $ra, 4($sp)
+sw $a0, 16($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 8
+sw $v0, 0($sp)
+li $v0, 2000
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 12
+sw $v0, 0($sp)
+li $v0, 3000
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+.L3:
+lw $ra, 4($sp)
+addiu $sp, $sp, 20
+jr $ra
+main:
+addiu $sp, $sp, -12
+sw $ra, 4($sp)
+jal setglobalx
+addiu $v0, $sp, 8
+sw $v0, 0($sp)
+li $v0, 100
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+jal printglobalx
+li $v0, 1000
+add $a0, $v0, $0
+jal foo
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal output
+jal printglobalx
+.L4:
+lw $ra, 4($sp)
+addiu $sp, $sp, 12
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

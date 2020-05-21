@@ -1,0 +1,42 @@
+.data
+.align 2
+
+.text
+main:
+addiu $sp, $sp, -8
+sw $ra, 4($sp)
+li $v0, 4
+sw $v0, 0($sp)
+li $v0, 5
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+add $a0, $v0, $0
+jal output
+.L1:
+lw $ra, 4($sp)
+addiu $sp, $sp, 8
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+

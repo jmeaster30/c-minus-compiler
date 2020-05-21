@@ -1,0 +1,26 @@
+TESTS=(lex_inputs/*)
+NUM_OF_TESTS=${#TESTS}
+#I need to subtract 2 because it was picking up the ./ and ../ files
+((NUM_OF_TESTS-=2))
+
+SUCCESS=0
+
+echo "Building Executable..."
+./build
+echo "Running tests..."
+mkdir lex_outputs
+for f in "${TESTS[@]}"; do
+	echo "****** Executing test $f ******"
+	./lex $f lex_outputs/${f##*/}.lex
+	./lexico $f lex_outputs/${f##*/}.lexico
+	RESULT=$(diff lex_outputs/${f##*/}.lex lex_outputs/${f##*/}.lexico)
+	if [[ -n "$RESULT" ]]; then
+		echo "TEST FAILED"
+	else
+		echo "TEST PASSED"
+		((SUCCESS++))
+	fi
+	echo ""
+done
+echo "$SUCCESS out of $NUM_OF_TESTS passed."
+	

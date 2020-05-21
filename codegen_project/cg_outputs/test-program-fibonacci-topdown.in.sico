@@ -1,0 +1,138 @@
+.data
+.align 2
+memo: .space 188
+
+.text
+fib:
+addiu $sp, $sp, -20
+sw $ra, 12($sp)
+sw $a0, 16($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 2
+lw $t0, 0($sp)
+slt $v0, $v0, $t0
+xori $v0, $v0, 1
+beq $v0, $0, .L2
+li $v0, 1
+j .L1
+.L2:
+la $v0, memo
+sw $v0, 4($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+sw $v0, 0($sp)
+li $v0, 0
+lw $t0, 0($sp)
+xor $v0, $t0, $v0
+sltu $v0, $0, $v0
+beq $v0, $0, .L3
+la $v0, memo
+sw $v0, 0($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+j .L1
+.L3:
+la $v0, memo
+sw $v0, 4($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+sw $v0, 0($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+sw $v0, 8($sp)
+li $v0, 1
+lw $t0, 8($sp)
+subu $v0, $t0, $v0
+add $a0, $v0, $0
+jal fib
+sw $v0, 4($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+sw $v0, 8($sp)
+li $v0, 2
+lw $t0, 8($sp)
+subu $v0, $t0, $v0
+add $a0, $v0, $0
+jal fib
+lw $t0, 4($sp)
+addu $v0, $t0, $v0
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+la $v0, memo
+sw $v0, 0($sp)
+addiu $v0, $sp, 16
+lw $v0, 0($v0)
+bltzal $v0, .L4
+sll $v0, $v0, 2
+lw $t0, 0($sp)
+addu $v0, $t0, $v0
+lw $v0, 0($v0)
+j .L1
+.L1:
+lw $ra, 12($sp)
+addiu $sp, $sp, 20
+jr $ra
+.L4:
+j __crt_out_of_bounds
+main:
+addiu $sp, $sp, -12
+sw $ra, 4($sp)
+.L6:
+addiu $v0, $sp, 8
+sw $v0, 0($sp)
+jal input
+lw $t0, 0($sp)
+sw $v0, 0($t0)
+beq $v0, $0, .L7
+addiu $v0, $sp, 8
+lw $v0, 0($v0)
+add $a0, $v0, $0
+jal fib
+add $a0, $v0, $0
+jal output
+j .L6
+.L7:
+.L5:
+lw $ra, 4($sp)
+addiu $sp, $sp, 12
+jr $ra
+
+
+.text
+.globl __crt_out_of_bounds
+.globl output
+.globl input
+
+__crt_out_of_bounds:
+li $v0, 10 # exit
+syscall
+
+output:
+li $v0, 1  # print_int
+syscall
+li $a0, 0x0a
+li $v0, 11 # print_char
+syscall
+jr $ra
+
+input:
+li $v0, 5 # read_int
+syscall
+jr $ra
+
