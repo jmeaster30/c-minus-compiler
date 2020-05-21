@@ -8,4 +8,6 @@ The only thing wrong with the compiler is some bug in the part of the code gener
 
 I do plan on revisiting this and fixing this bug.
 
-NOTE: the elf executables in the folders were provided by my professor and were for checking to make sure we were doing that part of the project correctly.
+NOTE: the elf executables (geracodigo, sintatico, lexico) in the folders were provided by my professor and were for checking to make sure we were doing that part of the project correctly.
+
+I will clean this repository up eventually too.
